@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mycontact.MainActivity">
+    <item
+        android:id="@+id/supprimer_contact"
+        android:title="@string/supprimer_contact" />
+    <item
+        android:id="@+id/appeler_contact"
+        android:title="@string/appeler_contact" />
+    <item
+        android:id="@+id/envoyer_email"
+        android:title="@string/envoyer_email" />
+    <item
+        android:id="@+id/loc_google"
+        android:title="@string/loc_google" />
+    <item
+        android:id="@+id/envoyer_sms"
+        android:title="@string/envoyer_sms" />
+</menu>

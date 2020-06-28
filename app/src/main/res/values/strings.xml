@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Mes Contacts</string>
+    <string name="nom_label">Nom</string>
+    <string name="prenom_label">Prenom</string>
+    <string name="telephone_label">Telephone</string>
+    <string name="adresse_label">Adresse</string>
+    <string name="email_label">Email</string>
+    <string name="insert_button">Ajouter</string>
+    <string name="action_settings">settings</string>
+    <string name="supprimer_contact">Supprimer</string>
+    <string name="alert_supprimer_message">êtes-vous sûr de vouloir supprimer?</string>
+    <string name="alert_supprimer_title">Confirmation</string>
+    <string name="alert_ok">Oui</string>
+    <string name="alert_cancel">Non</string>
+    <string name="appeler_contact">Appeler</string>
+    <string name="envoyer_email">Envoyer email</string>
+    <string name="loc_google">Localiser</string>
+    <string name="envoyer_sms">Envoyer sms</string>
+    <string name="modifier_contact">Modifier</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>
