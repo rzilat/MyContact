@@ -17,4 +17,7 @@
     <item
         android:id="@+id/envoyer_sms"
         android:title="@string/envoyer_sms" />
+    <item
+        android:id="@+id/modifier_contact"
+        android:title="@string/modifier_contact" />
 </menu>

@@ -17,6 +17,8 @@
     <string name="loc_google">Localiser</string>
     <string name="envoyer_sms">Envoyer sms</string>
     <string name="modifier_contact">Modifier</string>
+    <string name="favoris_contact">Favoris</string>
+    <string name="mes_favoris">Mes favoris</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

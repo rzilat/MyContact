@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView myContactList;
     private ContactDbAdapter myDbHelper;
+    private Button buttonMesFavoris;
+    private String nom;
+    private String prenom;
+    private String telephone;
+    private String adresse;
+    private String email;
+
 
 
     @Override
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+        buttonMesFavoris=findViewById(R.id.buttonMesFavoris);
         myContactList = findViewById(R.id.contact_list);
         registerForContextMenu( myContactList);
         myDbHelper = new ContactDbAdapter(this);
@@ -65,16 +76,26 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Cursor SelectedTaskCursor = (Cursor) myContactList.getItemAtPosition(position);
-                final String nom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("nom"));
-                final String prenom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("prenom"));
-                final String telephone = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("telephone"));
-                final String adresse = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("adresse"));
-                final String email = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("email"));
+                 nom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("nom"));
+                 prenom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("prenom"));
+                 telephone = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("telephone"));
+                adresse = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("adresse"));
+                 email = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("email"));
 
                 showContact(id,nom,prenom,telephone,adresse,email);
 
             }
         });
+
+        buttonMesFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                fillDataFavoris();
+            }
+        });
+
+
     }
 
     public void addContact(){
@@ -82,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 
 
 
@@ -114,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Cursor SelectedTaskCursor = (Cursor) myContactList.getItemAtPosition(info.position);
         final long id = SelectedTaskCursor.getLong(SelectedTaskCursor.getColumnIndex("_id"));
-        final String telephone = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("telephone"));
-        final String email = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("email"));
-        final String adresse = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("adresse"));
+         telephone = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("telephone"));
+         email = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("email"));
+        adresse = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("adresse"));
+         nom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("nom"));
+        prenom = SelectedTaskCursor.getString(SelectedTaskCursor.getColumnIndex("prenom"));
         PackageManager packageManager = getPackageManager();
         Intent myIntent;
         boolean isIntentSafe;
@@ -142,6 +167,12 @@ public class MainActivity extends AppCompatActivity {
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                return true;
+
+            case R.id.modifier_contact:
+
+                showContact(id,nom,prenom,telephone,adresse,email);
 
                 return true;
 
@@ -227,6 +258,21 @@ public class MainActivity extends AppCompatActivity {
     private void fillData() {
         // Get all of the notes from the database and create the item list
         Cursor c = myDbHelper.fetchAllContacts();
+        startManagingCursor(c);
+
+        String[] from = new String[] { ContactDbAdapter.KEY_NOM, ContactDbAdapter.KEY_PRENOM };
+        int[] to = new int[] { R.id.text1, R.id.text2};
+
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter contacts =
+                new SimpleCursorAdapter(this, R.layout.contacts_row, c, from, to,0);
+        myContactList.setAdapter(contacts);
+
+    }
+
+    private void fillDataFavoris() {
+        // Get all of the notes from the database and create the item list
+        Cursor c = myDbHelper.fetchAllContactsFavoris();
         startManagingCursor(c);
 
         String[] from = new String[] { ContactDbAdapter.KEY_NOM, ContactDbAdapter.KEY_PRENOM };

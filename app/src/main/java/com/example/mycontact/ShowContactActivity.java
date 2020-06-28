@@ -3,17 +3,12 @@ package com.example.mycontact;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class ShowContactActivity extends AppCompatActivity {
 
@@ -28,7 +23,7 @@ public class ShowContactActivity extends AppCompatActivity {
     private Button buttonEmailEnvoyer;
     private Button buttonLocaliser;
     private Button buttonModifier;
-
+    private Button buttonFavoris;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +49,17 @@ public class ShowContactActivity extends AppCompatActivity {
         buttonSmsEnvoyer=findViewById(R.id.buttonSmsEnvoyer);
         buttonEmailEnvoyer=findViewById(R.id.buttonEmailEnvoyer);
         buttonModifier=findViewById(R.id.buttonModifier);
+        buttonFavoris=findViewById(R.id.buttonMesFavoris);
+        myDbHelper = new ContactDbAdapter(this);
+        myDbHelper.open();
 
         nomEditText.setText(nom);
         prenomEditText.setText(prenom);
         telephoneEditText.setText(telephone);
         adresseEditText.setText(adresse);
         emailEditText.setText(email);
-        toast = Toast.makeText(this,"j'appele  :  "+id+nom,Toast.LENGTH_SHORT);
+
+        toast = Toast.makeText(this,"j'appele  :  "+nomEditText.getText().toString(),Toast.LENGTH_SHORT);
         toast.show();
 
 
@@ -104,38 +103,18 @@ public class ShowContactActivity extends AppCompatActivity {
             }
         });
 
-        /*buttonModifier.setOnClickListener(new View.OnClickListener() {
+        buttonModifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri selectedContactUri;
-                selectedContactUri =
-                        ShowContactActivity.get
-                Intent myIntent=new Intent(Intent.ACTION_EDIT);
-                myIntent.setDataAndType(selectedContactUri, ContactsContract.Contacts.CONTENT_ITEM_TYPE);
-
-
-                myDbHelper.updateContact(id,nomEditText.getText().toString(),prenomEditText.getText().toString(),telephoneEditText.getText().toString(),adresseEditText.getText().toString(),emailEditText.getText().toString());
-                 startActivity(myIntent);
+                myDbHelper.updateContact(id, nomEditText.getText().toString(), prenomEditText.getText().toString(), telephoneEditText.getText().toString(), adresseEditText.getText().toString(), emailEditText.getText().toString());
             }
-        });*/
+        });
 
-
-
-
-
-
-
-
-
-
-
+        buttonFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDbHelper.updateContactFavoris(id);
+            }
+        });
     }
-    /*public void modifierContact(){
-        Intent intent = new Intent(this, AddContactActivity.class);
-        startActivity(intent);
-
-    }*/
-
-
-
 }

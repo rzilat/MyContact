@@ -10,42 +10,46 @@
         android:id="@+id/buttonLocaliser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="214dp"
         android:text="@string/loc_google"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonSmsEnvoyer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="104dp"
-        android:text="@string/envoyer_sms"
-        app:layout_constraintBottom_toTopOf="@+id/buttonModifier"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEmailEnvoyer" />
 
     <Button
         android:id="@+id/buttonModifier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="212dp"
         android:text="@string/modifier_contact"
+        app:layout_constraintBottom_toTopOf="@+id/buttonMesFavoris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSmsEnvoyer" />
+
+    <Button
+        android:id="@+id/buttonSmsEnvoyer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/envoyer_sms"
+        app:layout_constraintBottom_toTopOf="@+id/buttonModifier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+    <Button
+        android:id="@+id/buttonMesFavoris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favoris_contact"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonModifier" />
 
     <Button
         android:id="@+id/buttonEmailEnvoyer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="284dp"
         android:text="@string/envoyer_email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonLocaliser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAppeler" />
 
     <TextView
         android:id="@+id/textView"
@@ -155,11 +159,10 @@
         android:id="@+id/buttonAppeler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="104dp"
         android:text="@string/appeler_contact"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLocaliser"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonEmailEnvoyer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

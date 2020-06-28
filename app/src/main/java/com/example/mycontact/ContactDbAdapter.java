@@ -42,7 +42,7 @@ public class ContactDbAdapter {
     public static final String KEY_TELEPHONE = "telephone";
     public static final String KEY_ADRESSE = "adresse";
     public static final String KEY_EMAIL = "email";
-
+    public static final String KEY_FAVORIS ="favoris";
 
     private static final String TAG = "ContactDbAdapter";
     private DatabaseHelper myDbHelper;
@@ -53,7 +53,7 @@ public class ContactDbAdapter {
      */
     private static final String DATABASE_CREATE =
         "create table contact (_id integer primary key autoincrement, "
-        + "nom text not null, prenom text , telephone text not null, adresse text , email text);";
+        + "nom text not null, prenom text , telephone text not null, adresse text , email text, favoris integer default 0);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "contact";
@@ -150,6 +150,12 @@ public class ContactDbAdapter {
                 KEY_PRENOM, KEY_TELEPHONE, KEY_ADRESSE, KEY_EMAIL}, null, null, null, null, KEY_NOM);
     }
 
+    public Cursor fetchAllContactsFavoris() {
+
+        return myDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NOM,
+                KEY_PRENOM, KEY_TELEPHONE, KEY_ADRESSE, KEY_EMAIL, KEY_FAVORIS}, KEY_FAVORIS + "=" + 1, null, null, null, KEY_NOM);
+    }
+
     /**
      * Return a Cursor positioned at the note that matches the given rowId
      * 
@@ -171,16 +177,7 @@ public class ContactDbAdapter {
 
     }
 
-    /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
-     * 
-     * @param rowId id of note to update
-     * @param title value to set note title to
-     * @param body value to set note body to
-     * @return true if the note was successfully updated, false otherwise
-     */
+
     public boolean updateContact(long rowId, String nom, String prenom,String telephone,String adresse,String email) {
         ContentValues args = new ContentValues();
         args.put(KEY_NOM, nom);
@@ -188,6 +185,13 @@ public class ContactDbAdapter {
         args.put(KEY_TELEPHONE, telephone);
         args.put(KEY_ADRESSE, adresse);
         args.put(KEY_EMAIL, email);
+
+        return myDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
+    public boolean updateContactFavoris(long rowId) {
+        ContentValues args = new ContentValues();
+        args.put(KEY_FAVORIS, 1);
 
         return myDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
